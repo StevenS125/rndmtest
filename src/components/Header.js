@@ -1,47 +1,49 @@
-import React, { component } from 'react';
+import React, { Component } from 'react';
+import './Header.css'
+
 
 export default class Header extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        users: [
-          {
-            username: 'Jeff',
-            online: true
-          },
-          {
-            username: 'Alan',
-            online: false
-          },
-          {
-            username: 'Mary',
-            online: true
-          },
-          {
-            username: 'Jim',
-            online: false
-          },
-          {
-            username: 'Sara',
-            online: true
-          },
-          {
-            username: 'Laura',
-            online: true
-          }
-        ]
+        super(props);
+        // change code below this line
+        this.state = {
+          userInput: '',
+          names: []
+        }
+        // change code above this line
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
       }
-    }
+      handleSubmit(event) {
+          let newArr = this.state.names.slice()
+          newArr.push({name: this.state.userInput})
+        this.setState({
+          names: newArr
+        });
+        event.preventDefault()
+      }
+      handleChange(e) {
+        this.setState({
+          userInput: e.target.value
+        });
+        e.preventDefault()
+      }
+
+
     render() {
-      const usersOnline = null; // change code here
-      const renderOnline = null; // change code here
-      return (
-         <div>
-           <h1>Current Online Users:</h1>
-           <ul>
-             {renderOnline}
-           </ul>
-         </div>
+       const clientelle = this.state.names.map((i, index) => <ul key={index}>{i.name}</ul>)
+        return (
+          <div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+            <h1>Clients:</h1>
+              {clientelle}
+          </div>
       );
     }
   };
