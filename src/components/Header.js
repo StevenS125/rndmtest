@@ -8,7 +8,8 @@ export default class Header extends Component {
         // change code below this line
         this.state = {
           userInput: '',
-          names: []
+          names: [],
+          selection: "pick a winner"
         }
         // change code above this line
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,8 +17,9 @@ export default class Header extends Component {
       }
       handleSubmit(event) {
           let newArr = this.state.names.slice()
-          newArr.push({name: this.state.userInput})
-        this.setState({
+          newArr.push({name: this.state.userInput,
+                        id: this.state.names.length + 1 })
+        this.setState({     
           names: newArr
         });
         event.preventDefault()
@@ -29,9 +31,18 @@ export default class Header extends Component {
         e.preventDefault()
       }
 
+      pickwinner = () => {
+        const max = this.state.names.length
+
+        const numSelect = Math.floor(Math.random() * max)
+        this.setState({
+            selection: this.state.names[numSelect].name
+        })
+      }
+
 
     render() {
-       const clientelle = this.state.names.map((i, index) => <ul key={index}>{i.name}</ul>)
+       const clientelle = this.state.names.map((i, index) => <ul key={index}> {i.name}</ul>)
         return (
           <div>
       <form onSubmit={this.handleSubmit}>
@@ -41,8 +52,15 @@ export default class Header extends Component {
         </label>
         <input type="submit" value="Submit" />
       </form>
-            <h1>Clients:</h1>
+      <div>
+            <h1>Names:</h1>
               {clientelle}
+</div>
+<div>
+    <h1>Winner</h1>
+    <div>{this.state.selection}</div>
+    <button onClick={this.pickwinner}>Click to Pick</button>
+</div>
           </div>
       );
     }
