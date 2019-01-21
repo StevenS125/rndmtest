@@ -48,7 +48,7 @@ export default class Header extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" value={this.state.value} onChange={this.handleChange} required placeholder=" "  />
         </label>
         <input type="submit" value="Submit" />
       </form>
